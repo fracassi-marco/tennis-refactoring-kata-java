@@ -1,5 +1,9 @@
 package kata;
 
+import java.util.HashMap;
+
+import static java.util.Arrays.asList;
+
 public class TennisGame {
 
     private int m_score1 = 0;
@@ -19,21 +23,7 @@ public class TennisGame {
         String score = "";
         int tempScore = 0;
         if (m_score1 == m_score2) {
-            switch (m_score1) {
-                case 0:
-                    score = "Love-All";
-                    break;
-                case 1:
-                    score = "Fifteen-All";
-                    break;
-                case 2:
-                    score = "Thirty-All";
-                    break;
-                default:
-                    score = "Deuce";
-                    break;
-
-            }
+            return deuce();
         } else if (m_score1 >= 4 || m_score2 >= 4) {
             int minusResult = m_score1 - m_score2;
             if (minusResult == 1) score = "Advantage player1";
@@ -64,5 +54,15 @@ public class TennisGame {
             }
         }
         return score;
+    }
+
+    private String deuce() {
+        return asList(
+                "Love-All",
+                "Fifteen-All",
+                "Thirty-All",
+                "Deuce",
+                "Deuce"
+        ).get(m_score1);
     }
 }
