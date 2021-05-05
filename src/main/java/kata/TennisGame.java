@@ -22,11 +22,11 @@ public class TennisGame {
     public String getScore() {
         if (player1.hasSameScore(player2)) {
             return deuce();
-        } else if (player1.isCloseToWin() || player2.isCloseToWin()) {
-            return closeToWin();
-        } else {
-            return inTheGame();
         }
+        if (player1.isCloseToWin() || player2.isCloseToWin()) {
+            return closeToWin();
+        }
+        return inTheGame();
     }
 
     private String inTheGame() {
