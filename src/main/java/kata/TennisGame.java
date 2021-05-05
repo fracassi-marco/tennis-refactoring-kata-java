@@ -1,6 +1,6 @@
 package kata;
 
-import java.util.HashMap;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 
@@ -20,36 +20,18 @@ public class TennisGame {
     }
 
     public String getScore() {
-        String score = "";
-        int tempScore = 0;
         if (m_score1 == m_score2) {
             return deuce();
         } else if (m_score1 >= 4 || m_score2 >= 4) {
-            score = closeToWin();
+            return closeToWin();
         } else {
-            for (int i = 1; i < 3; i++) {
-                if (i == 1) tempScore = m_score1;
-                else {
-                    score += "-";
-                    tempScore = m_score2;
-                }
-                switch (tempScore) {
-                    case 0:
-                        score += "Love";
-                        break;
-                    case 1:
-                        score += "Fifteen";
-                        break;
-                    case 2:
-                        score += "Thirty";
-                        break;
-                    case 3:
-                        score += "Forty";
-                        break;
-                }
-            }
+            return inTheGame();
         }
-        return score;
+    }
+
+    private String inTheGame() {
+        List<String> scores = asList("Love", "Fifteen", "Thirty", "Forty");
+        return scores.get(m_score1) + "-" + scores.get(m_score2);
     }
 
     private String closeToWin() {
@@ -61,12 +43,6 @@ public class TennisGame {
     }
 
     private String deuce() {
-        return asList(
-                "Love-All",
-                "Fifteen-All",
-                "Thirty-All",
-                "Deuce",
-                "Deuce"
-        ).get(m_score1);
+        return asList("Love-All", "Fifteen-All", "Thirty-All", "Deuce", "Deuce").get(m_score1);
     }
 }
