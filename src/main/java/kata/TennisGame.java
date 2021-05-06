@@ -20,8 +20,11 @@ public class TennisGame {
         if (players.areDeuce()) {
             return deuce();
         }
-        if (players.areCloseToWin()) {
-            return closeToWin();
+        if (players.areCloseToWin() && Math.abs(players.scoreGap()) == 1) {
+            return advantage();
+        }
+        if (players.areCloseToWin() && Math.abs(players.scoreGap()) > 1) {
+            return win();
         }
         return inTheGame();
     }
@@ -31,10 +34,14 @@ public class TennisGame {
         return players.formatScores(scores);
     }
 
-    private String closeToWin() {
+    private String advantage() {
         int minusResult =  players.scoreGap();
         if (minusResult == 1) return "Advantage player1";
-        if (minusResult == -1) return "Advantage player2";
+        return "Advantage player2";
+    }
+
+    private String win() {
+        int minusResult =  players.scoreGap();
         if (minusResult >= 2) return "Win for player1";
         return "Win for player2";
     }
