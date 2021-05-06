@@ -17,9 +17,13 @@ public class TennisGame {
     }
 
     public String getScore() {
-        return Stream.of(new Deuce(player1, player2), new Advantage(player1, player2), new Win(player1, player2), new InTheGame(player1, player2))
-            .filter(MatchStage::canApply)
-            .findFirst().get()
-            .score();
+        Stream<MatchStage> stages = Stream.of(
+                new Deuce(player1, player2),
+                new CloseToWin(player1, player2),
+                //new Win(player1, player2),
+                new InTheGame(player1, player2)
+        );
+
+        return stages.filter(MatchStage::canApply).findFirst().get().score();
     }
 }
