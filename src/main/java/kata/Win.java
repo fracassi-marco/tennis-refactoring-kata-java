@@ -18,8 +18,11 @@ public class Win implements MatchStage {
 
     @Override
     public String score() {
-        String prefix = "Win for";
-        return scoreGap() > 1 ? player1.appendName(prefix) : player2.appendName(prefix);
+        return scoreGap() > 1 ? win(player1) : win(player2);
+    }
+
+    private String win(Player player) {
+        return player.appendName("Win for");
     }
 
     private int scoreGap() {

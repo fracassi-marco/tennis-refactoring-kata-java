@@ -16,8 +16,11 @@ public class Advantage implements MatchStage {
 
     @Override
     public String score() {
-        String prefix = "Advantage";
-        return scoreGap() == 1 ? player1.appendName(prefix) : player2.appendName(prefix);
+        return scoreGap() == 1 ? advantage(player1) : advantage(player2);
+    }
+
+    private String advantage(Player player) {
+        return player.appendName("Advantage");
     }
 
     private int scoreGap() {
