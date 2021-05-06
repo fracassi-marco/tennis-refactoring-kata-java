@@ -22,19 +22,27 @@ public class Player {
         return other.score == score;
     }
 
-    public boolean isCloseToWin() {
-        return score >= 4;
-    }
-
     public String actualScore(List<String> scores) {
         return scores.get(score);
     }
 
-    public int scoreGap(Player other) {
-        return score - other.score;
-    }
-
     public String appendName(String prefix) {
         return prefix + " " + name;
+    }
+
+    public boolean winOver(Player other) {
+        return isCloseToWin() && scoreGap(other) > 1;
+    }
+
+    public boolean advantageOver(Player other) {
+        return isCloseToWin() && scoreGap(other) == 1;
+    }
+
+    private boolean isCloseToWin() {
+        return score >= 4;
+    }
+
+    private int scoreGap(Player other) {
+        return score - other.score;
     }
 }

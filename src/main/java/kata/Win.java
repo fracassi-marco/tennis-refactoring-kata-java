@@ -1,7 +1,5 @@
 package kata;
 
-import static java.lang.Math.abs;
-
 public class Win implements MatchStage {
     private final Player player1;
     private final Player player2;
@@ -13,19 +11,15 @@ public class Win implements MatchStage {
 
     @Override
     public boolean canApply() {
-        return (player1.isCloseToWin() || player2.isCloseToWin()) && abs(scoreGap()) > 1;
+        return player1.winOver(player2) || player2.winOver(player1);
     }
 
     @Override
     public String score() {
-        return scoreGap() > 1 ? win(player1) : win(player2);
+        return player1.winOver(player2) ? win(player1) : win(player2);
     }
 
     private String win(Player player) {
         return player.appendName("Win for");
-    }
-
-    private int scoreGap() {
-        return player1.scoreGap(player2);
     }
 }
