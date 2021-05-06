@@ -1,29 +1,26 @@
 package kata;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 
 public class TennisGame {
 
-    private final Player player1;
-    private final Player player2;
+    private final Players players;
 
     public TennisGame(String player1Name, String player2Name) {
-        player1 = new Player(player1Name);
-        player2 = new Player(player2Name);
+        players = new Players(new Player(player1Name), new Player(player2Name));
     }
 
     public void wonPoint(String playerName) {
-        Stream.of(player1, player2).filter(p -> p.is(playerName)).findFirst().get().addPoint();
+        players.addPointTo(playerName);
     }
 
     public String getScore() {
-        if (player1.hasSameScore(player2)) {
+        if (players.areDeuce()) {
             return deuce();
         }
-        if (player1.isCloseToWin() || player2.isCloseToWin()) {
+        if (players.areCloseToWin()) {
             return closeToWin();
         }
         return inTheGame();
@@ -31,11 +28,11 @@ public class TennisGame {
 
     private String inTheGame() {
         List<String> scores = asList("Love", "Fifteen", "Thirty", "Forty");
-        return player1.printScore(scores) + "-" + player2.printScore(scores);
+        return players.formatScores(scores);
     }
 
     private String closeToWin() {
-        int minusResult = player1.scoreGap(player2);
+        int minusResult =  players.scoreGap();
         if (minusResult == 1) return "Advantage player1";
         if (minusResult == -1) return "Advantage player2";
         if (minusResult >= 2) return "Win for player1";
@@ -43,6 +40,6 @@ public class TennisGame {
     }
 
     private String deuce() {
-        return player1.printScore(asList("Love-All", "Fifteen-All", "Thirty-All", "Deuce", "Deuce"));
+        return players.formatScoresOnDeuce(asList("Love-All", "Fifteen-All", "Thirty-All", "Deuce", "Deuce"));
     }
 }

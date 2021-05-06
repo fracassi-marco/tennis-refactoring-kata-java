@@ -26,7 +26,7 @@ public class Player {
         return score >= 4;
     }
 
-    public String printScore(List<String> scores) {
+    public String actualScore(List<String> scores) {
         return scores.get(score);
     }
 
