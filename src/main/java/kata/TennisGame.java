@@ -1,8 +1,6 @@
 package kata;
 
-import java.util.List;
-
-import static java.util.Arrays.asList;
+import java.util.stream.Stream;
 
 public class TennisGame {
 
@@ -17,36 +15,9 @@ public class TennisGame {
     }
 
     public String getScore() {
-        if (players.areDeuce()) {
-            return deuce();
-        }
-        if (players.areCloseToWin() && Math.abs(players.scoreGap()) == 1) {
-            return advantage();
-        }
-        if (players.areCloseToWin() && Math.abs(players.scoreGap()) > 1) {
-            return win();
-        }
-        return inTheGame();
-    }
-
-    private String inTheGame() {
-        List<String> scores = asList("Love", "Fifteen", "Thirty", "Forty");
-        return players.formatScores(scores);
-    }
-
-    private String advantage() {
-        int minusResult =  players.scoreGap();
-        if (minusResult == 1) return "Advantage player1";
-        return "Advantage player2";
-    }
-
-    private String win() {
-        int minusResult =  players.scoreGap();
-        if (minusResult >= 2) return "Win for player1";
-        return "Win for player2";
-    }
-
-    private String deuce() {
-        return players.formatScoresOnDeuce(asList("Love-All", "Fifteen-All", "Thirty-All", "Deuce", "Deuce"));
+        return Stream.of(new Deuce(players), new Advantage(players), new Win(players), new InTheGame(players))
+            .filter(MatchStage::canApply)
+            .findFirst().get()
+            .score();
     }
 }
