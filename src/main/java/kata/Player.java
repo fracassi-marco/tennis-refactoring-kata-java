@@ -33,4 +33,8 @@ public class Player {
     public int scoreGap(Player other) {
         return score - other.score;
     }
+
+    public String appendName(String prefix) {
+        return prefix + " " + name;
+    }
 }

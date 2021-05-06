@@ -4,18 +4,20 @@ import java.util.stream.Stream;
 
 public class TennisGame {
 
-    private final Players players;
+    private final Player player1;
+    private final Player player2;
 
     public TennisGame(String player1Name, String player2Name) {
-        players = new Players(new Player(player1Name), new Player(player2Name));
+        player1 = new Player(player1Name);
+        player2 = new Player(player2Name);
     }
 
     public void wonPoint(String playerName) {
-        players.addPointTo(playerName);
+        Stream.of(player1, player2).filter(p -> p.is(playerName)).findFirst().get().addPoint();
     }
 
     public String getScore() {
-        return Stream.of(new Deuce(players), new Advantage(players), new Win(players), new InTheGame(players))
+        return Stream.of(new Deuce(player1, player2), new Advantage(player1, player2), new Win(player1, player2), new InTheGame(player1, player2))
             .filter(MatchStage::canApply)
             .findFirst().get()
             .score();

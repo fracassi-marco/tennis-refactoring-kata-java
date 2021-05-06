@@ -1,21 +1,26 @@
 package kata;
 
 public class Advantage implements MatchStage {
-    private final Players players;
+    private final Player player1;
+    private final Player player2;
 
-    public Advantage(Players players) {
-        this.players = players;
+    public Advantage(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     @Override
     public boolean canApply() {
-        return players.areCloseToWin() && Math.abs(players.scoreGap()) == 1;
+        return (player1.isCloseToWin() || player2.isCloseToWin()) && Math.abs(scoreGap()) == 1;
     }
 
     @Override
     public String score() {
-        int minusResult =  players.scoreGap();
-        if (minusResult == 1) return "Advantage player1";
-        return "Advantage player2";
+        String prefix = "Advantage";
+        return scoreGap() == 1 ? player1.appendName(prefix) : player2.appendName(prefix);
+    }
+
+    private int scoreGap() {
+        return player1.scoreGap(player2);
     }
 }

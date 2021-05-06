@@ -75,6 +75,7 @@ public class TennisGameTest {
             if (i < this.player2Score)
                 game.wonPoint("player2");
         }
+        System.out.println(player1Score + " - " + player2Score);
         assertEquals(this.expectedScore, game.getScore());
     }
 
