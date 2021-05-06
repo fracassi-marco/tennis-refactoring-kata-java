@@ -10,12 +10,9 @@ public class Player {
         this.name = name;
     }
 
-    public boolean is(String name) {
-        return this.name.equals(name);
-    }
-
-    public void addPoint() {
-        score++;
+    public void addPointIf(String name) {
+        if(this.name.equals(name))
+            score ++;
     }
 
     public boolean hasSameScore(Player other) {

@@ -2,6 +2,8 @@ package kata;
 
 import java.util.stream.Stream;
 
+import static java.util.Arrays.asList;
+
 public class TennisGame {
 
     private final Player player1;
@@ -13,7 +15,7 @@ public class TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        Stream.of(player1, player2).filter(p -> p.is(playerName)).findFirst().get().addPoint();
+        asList(player1, player2).forEach(player -> player.addPointIf(playerName));
     }
 
     public String getScore() {
