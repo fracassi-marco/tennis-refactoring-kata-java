@@ -17,9 +17,9 @@ public class TennisGame {
 
     public void wonPoint(String playerName) {
         if (playerName.equals(player1Name))
-            m_score1 += 1;
-        else
-            m_score2 += 1;
+            m_score1++;
+        if (playerName.equals(player2Name))
+            m_score2++;
     }
 
     public String getScore() {
@@ -31,19 +31,25 @@ public class TennisGame {
             scores.put(3, "Deuce");
             scores.put(4, "Deuce");
             return scores.get(m_score1);
-        } else if (m_score1 >= 4 || m_score2 >= 4) {
-            int minusResult = m_score1 - m_score2;
-            if (minusResult == 1) return "Advantage " + player1Name;
-            if (minusResult == -1) return "Advantage " + player2Name;
-            if (minusResult >= 2) return "Win for " + player1Name;
-            return "Win for " + player2Name;
-        } else {
-            Map<Integer, String> scores = new HashMap<>();
-            scores.put(0, "Love");
-            scores.put(1, "Fifteen");
-            scores.put(2, "Thirty");
-            scores.put(3, "Forty");
-            return scores.get(m_score1) + "-" + scores.get(m_score2);
         }
+        if (m_score1 >= 4 || m_score2 >= 4) {
+            Map<Integer, String> scores = new HashMap<>();
+            scores.put(1, "Advantage " + player1Name);
+            scores.put(-1, "Advantage " + player2Name);
+            scores.put(2, "Win for " + player1Name);
+            scores.put(-2, "Win for " + player2Name);
+            scores.put(3, "Win for " + player1Name);
+            scores.put(-3, "Win for " + player2Name);
+            scores.put(4, "Win for " + player1Name);
+            scores.put(-4, "Win for " + player2Name);
+            return scores.get(m_score1 - m_score2);
+        }
+
+        Map<Integer, String> scores = new HashMap<>();
+        scores.put(0, "Love");
+        scores.put(1, "Fifteen");
+        scores.put(2, "Thirty");
+        scores.put(3, "Forty");
+        return scores.get(m_score1) + "-" + scores.get(m_score2);
     }
 }
