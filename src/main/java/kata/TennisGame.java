@@ -2,8 +2,8 @@ package kata;
 
 public class TennisGame {
 
-    private final Score m_score1 = new Score(0);
-    private final Score m_score2 = new Score(0);
+    private final Score score1 = new Score(0);
+    private final Score score2 = new Score(0);
     private final Name name1;
     private final Name name2;
 
@@ -14,20 +14,22 @@ public class TennisGame {
 
     public void wonPoint(String playerName) {
         if (name1.is(playerName))
-            m_score1.addPoint();
+            score1.addPoint();
         if (name2.is(playerName))
-            m_score2.addPoint();
+            score2.addPoint();
     }
 
     public String getScore() {
-        if (m_score1.equalTo(m_score2)) {
-            return m_score1.formatDeuce();
+        if (score1.equalTo(score2)) {
+            return score1.formatDeuce();
         }
-        if (m_score1.isNearToWin() || m_score2.isNearToWin()) {
-            Score diff = m_score1.minus(m_score2);
-            return diff.format(name1, name2);
+        if (score1.isNearToWin() && score1.isGreaterThan(score2)) {
+            return score1.minus(score2).format(name1);
+        }
+        if (score2.isNearToWin() && score2.isGreaterThan(score1)) {
+            return score2.minus(score1).format(name2);
         }
 
-        return m_score1.format() + "-" + m_score2.format();
+        return score1.format() + "-" + score2.format();
     }
 }

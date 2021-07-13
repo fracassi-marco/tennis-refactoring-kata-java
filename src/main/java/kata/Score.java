@@ -45,16 +45,16 @@ public class Score {
         return new Score(score - other.score);
     }
 
-    public String format(Name name1, Name name2) {
+    public String format(Name name) {
         Map<Integer, String> scores = new HashMap<>();
-        scores.put(1, "Advantage " + name1);
-        scores.put(-1, "Advantage " + name2);
-        scores.put(2, "Win for " + name1);
-        scores.put(-2, "Win for " + name2);
-        scores.put(3, "Win for " + name1);
-        scores.put(-3, "Win for " + name2);
-        scores.put(4, "Win for " + name1);
-        scores.put(-4, "Win for " + name2);
+        scores.put(1, "Advantage " + name);
+        scores.put(2, "Win for " + name);
+        scores.put(3, "Win for " + name);
+        scores.put(4, "Win for " + name);
         return scores.get(score);
+    }
+
+    public boolean isGreaterThan(Score other) {
+        return score > other.score;
     }
 }
