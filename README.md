@@ -8,7 +8,18 @@ If you like this Kata, you may be interested in [my books](https://leanpub.com/u
 
 ## Kata Description
 
-Here is a description of the problem this code is designed to solve: [Tennis Kata](https://sammancoaching.org/kata_descriptions/tennis.html). 
+Here is a description of the problem this code is designed to solve: [Tennis Kata](https://sammancoaching.org/kata_descriptions/tennis.html).
+
+## Calisthenics rules
+1. One level of indentation per method
+2. Don’t use the ELSE keyword
+3. Wrap all primitives and Strings
+4. First class collections
+5. One dot per line
+6. Don’t abbreviate
+7. Keep all entities small (50 lines)
+8. No classes with more than two instance variables
+9. No getters/setters/properties
 
 ## Questions to discuss afterwards
 
