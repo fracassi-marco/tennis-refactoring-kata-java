@@ -7,18 +7,18 @@ public class TennisGame {
 
     private int m_score1 = 0;
     private int m_score2 = 0;
-    private final String player1Name;
-    private final String player2Name;
+    private final Name name1;
+    private final Name name2;
 
     public TennisGame(String player1Name, String player2Name) {
-        this.player1Name = player1Name;
-        this.player2Name = player2Name;
+        this.name1 = new Name(player1Name);
+        this.name2 = new Name(player2Name);
     }
 
     public void wonPoint(String playerName) {
-        if (playerName.equals(player1Name))
+        if (name1.is(playerName))
             m_score1++;
-        if (playerName.equals(player2Name))
+        if (name2.is(playerName))
             m_score2++;
     }
 
@@ -34,14 +34,14 @@ public class TennisGame {
         }
         if (m_score1 >= 4 || m_score2 >= 4) {
             Map<Integer, String> scores = new HashMap<>();
-            scores.put(1, "Advantage " + player1Name);
-            scores.put(-1, "Advantage " + player2Name);
-            scores.put(2, "Win for " + player1Name);
-            scores.put(-2, "Win for " + player2Name);
-            scores.put(3, "Win for " + player1Name);
-            scores.put(-3, "Win for " + player2Name);
-            scores.put(4, "Win for " + player1Name);
-            scores.put(-4, "Win for " + player2Name);
+            scores.put(1, "Advantage " + name1);
+            scores.put(-1, "Advantage " + name2);
+            scores.put(2, "Win for " + name1);
+            scores.put(-2, "Win for " + name2);
+            scores.put(3, "Win for " + name1);
+            scores.put(-3, "Win for " + name2);
+            scores.put(4, "Win for " + name1);
+            scores.put(-4, "Win for " + name2);
             return scores.get(m_score1 - m_score2);
         }
 
