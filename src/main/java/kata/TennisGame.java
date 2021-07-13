@@ -1,12 +1,9 @@
 package kata;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class TennisGame {
 
-    private int m_score1 = 0;
-    private int m_score2 = 0;
+    private final Score m_score1 = new Score(0);
+    private final Score m_score2 = new Score(0);
     private final Name name1;
     private final Name name2;
 
@@ -17,39 +14,20 @@ public class TennisGame {
 
     public void wonPoint(String playerName) {
         if (name1.is(playerName))
-            m_score1++;
+            m_score1.addPoint();
         if (name2.is(playerName))
-            m_score2++;
+            m_score2.addPoint();
     }
 
     public String getScore() {
-        if (m_score1 == m_score2) {
-            Map<Integer, String> scores = new HashMap<>();
-            scores.put(0, "Love-All");
-            scores.put(1, "Fifteen-All");
-            scores.put(2, "Thirty-All");
-            scores.put(3, "Deuce");
-            scores.put(4, "Deuce");
-            return scores.get(m_score1);
+        if (m_score1.equalTo(m_score2)) {
+            return m_score1.formatDeuce();
         }
-        if (m_score1 >= 4 || m_score2 >= 4) {
-            Map<Integer, String> scores = new HashMap<>();
-            scores.put(1, "Advantage " + name1);
-            scores.put(-1, "Advantage " + name2);
-            scores.put(2, "Win for " + name1);
-            scores.put(-2, "Win for " + name2);
-            scores.put(3, "Win for " + name1);
-            scores.put(-3, "Win for " + name2);
-            scores.put(4, "Win for " + name1);
-            scores.put(-4, "Win for " + name2);
-            return scores.get(m_score1 - m_score2);
+        if (m_score1.isNearToWin() || m_score2.isNearToWin()) {
+            Score diff = m_score1.minus(m_score2);
+            return diff.format(name1, name2);
         }
 
-        Map<Integer, String> scores = new HashMap<>();
-        scores.put(0, "Love");
-        scores.put(1, "Fifteen");
-        scores.put(2, "Thirty");
-        scores.put(3, "Forty");
-        return scores.get(m_score1) + "-" + scores.get(m_score2);
+        return m_score1.format() + "-" + m_score2.format();
     }
 }
