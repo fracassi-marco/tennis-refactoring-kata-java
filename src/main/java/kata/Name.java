@@ -1,7 +1,7 @@
 package kata;
 
 public class Name {
-    private String name;
+    private final String name;
 
     public Name(String name) {
         this.name = name;
@@ -14,5 +14,9 @@ public class Name {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String prepend(String text) {
+        return text + name;
     }
 }
