@@ -11,11 +11,6 @@ public class Name {
         return this.name.equals(name);
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
     public String prepend(String text) {
         return text + name;
     }
